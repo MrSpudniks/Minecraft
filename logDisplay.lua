@@ -1,20 +1,44 @@
---pastebin BjBiMEPf
+--pastebin 5PQj0BSx
 monitor = peripheral.wrap("right")
 height = 2
 textScale = 0.5
 monitor.setTextScale(textScale)
 verticalHeight = height * (1 / textScale) * 7 - (2 * (1 / textScale))
 lastLength = 0
- 
- 
+logLocation = false
+
+
+
 function monitorWrite(msg)
     monitor.write(string.format("%s                                                ", msg))
 end
- 
- 
- 
+
+while logLocation == false do
+    sleep(1)
+    for i = 0, 20 do
+    
+        if peripheral.wrap(string.format("drive_%d", i)) ~= nil then
+            
+            diskDrive = peripheral.wrap(string.format("drive_%d", i))
+            
+            
+            
+            if diskDrive.getDiskLabel() == "fission" then
+            
+                mountPath = diskDrive.getMountPath()
+            
+                logLocation = string.format("%s/log.txt", mountPath)
+        
+            end
+        end
+    end
+
+end
+
+
+
 while true do
-    file = fs.open("disk/log.txt", "r")
+    file = fs.open(logLocation, "r")
     lines = {}
     
     
@@ -26,7 +50,7 @@ while true do
     
     
     if #lines < lastLength then
-        shell.run("disk/clearMonitor.lua")
+        shell.run(string.format("%s/clearMonitor.lua", mountPath))
     end
     lastLength = #lines
     

@@ -1,17 +1,16 @@
---pastebin 8zzuBV2v
-r = peripheral.wrap("fissionReactorLogicAdapter_1")
-m = peripheral.wrap("right")
+--pastebin gQa0Q3Et
+r = peripheral.wrap("fissionReactorLogicAdapter_1") --fission reactor logic port
+m = peripheral.wrap("right") --2x2 monitor
 m.setTextScale(1)
 cooldown = 0
 startSide = "front"
 stopSide = "top"
 lastDangerLevel = 0
-logLocation = "disk/log.txt"
- 
+logLocation = false
+
  
  
 function log(msg)
-    --logLocation = "disk/log.txt"
     file = fs.open(logLocation, "a")
     file.writeLine(string.format("%s: %s", os.date(), msg))
     file.close()
@@ -19,22 +18,26 @@ end
  
  
  
-for i = 0, 20 do
- 
-    if peripheral.wrap(string.format("drive_%d", i)) ~= nil then
-        
-        diskDrive = peripheral.wrap(string.format("drive_%d", i))
-        
-        
-        
-        if diskDrive.getDiskLabel() == "fission" then
-        
-            mountPath = diskDrive.getMountPath()
-        
-            logLocation = string.format("%s/log.txt", mountPath)
+while logLocation == false do
+    sleep(1)
+    for i = 0, 20 do
     
+        if peripheral.wrap(string.format("drive_%d", i)) ~= nil then
+            
+            diskDrive = peripheral.wrap(string.format("drive_%d", i))
+            
+            
+            
+            if diskDrive.getDiskLabel() == "fission" then
+            
+                mountPath = diskDrive.getMountPath()
+            
+                logLocation = string.format("%s/log.txt", mountPath)
+        
+            end
         end
     end
+
 end
  
  
@@ -70,7 +73,7 @@ log("booted")
 function clear()
     for i = 1, 12, 1 do
         m.setCursorPos(1,i)
-        m.write("                    ")
+        m.write("                                           ")
     end
 end
  
@@ -124,7 +127,7 @@ while true do
     elseif danger >= 60 then
         m.setTextColor(colors.red)
         m.write("DANGER            ")
-        --rs.setOutput("top", true)
+        --rs.setOutput("top", true) --alarm
         if lastDangerLevel < danger then
             log(string.format("%d  danger", danger))
         end
