@@ -14,6 +14,7 @@ function monitorWrite(msg)
 end
 
 while logLocation == false do
+    monitor.write("searching for log...")
     sleep(1)
     for i = 0, 20 do
     
