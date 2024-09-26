@@ -1,2 +1,2 @@
 # Minecraft
-mein kampf repos
+minecraft repos
