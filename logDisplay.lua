@@ -19,6 +19,7 @@ function clear_monitor()
     for line = 0, verticalHeight do
         monitor.setCursorPos(1, line)
         monitorWrite("")
+    end
 end
 
 
