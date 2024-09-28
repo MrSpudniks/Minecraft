@@ -1,4 +1,4 @@
---pastebin qcwxmZLA
+--pastebin x0QBbWUt
 r = peripheral.wrap("fissionReactorLogicAdapter_1") --fission reactor logic port
 m = peripheral.wrap("right") --2x2 monitor
 m.setTextScale(1)
