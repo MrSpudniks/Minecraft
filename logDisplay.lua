@@ -13,8 +13,17 @@ function monitorWrite(msg)
     monitor.write(string.format("%s                                                ", msg))
 end
 
+
+
+function clear_monitor()
+    for line = 0, verticalHeight do
+        monitor.setCursorPos(1, line)
+        monitorWrite("")
+end
+
+
+
 while logLocation == false do
-    monitor.write("searching for log...")
     sleep(1)
     for i = 0, 20 do
     
@@ -24,7 +33,7 @@ while logLocation == false do
             
             
             
-            if diskDrive.getDiskLabel() == "fission" then
+            if diskDrive.getDiskLabel() == "log" then
             
                 mountPath = diskDrive.getMountPath()
             
@@ -42,20 +51,14 @@ while true do
     file = fs.open(logLocation, "r")
     lines = {}
     
-    
-    
     for line in file.readLine do
         table.insert(lines, line)
     end
     
-    
-    
     if #lines < lastLength then
-        shell.run(string.format("%s/clearMonitor.lua", mountPath))
+        clear_monitor()
     end
     lastLength = #lines
-    
-    
     
     if #lines > verticalHeight then
         for i = 0, verticalHeight do
