@@ -1,4 +1,4 @@
---pastebin yUmyzNi9
+--pastebin 8rHRK6yg
 monitor = peripheral.wrap("right")
 height = 2
 textScale = 0.5
