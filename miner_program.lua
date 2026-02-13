@@ -1,10 +1,11 @@
+--pastebin: 5nKzryyX
 --settings--
 coords = {
-    ["x"] = 0,
-    ["y"] = 0,
-    ["z"] = 0
+    ["x"] = 1420,
+    ["y"] = 310,
+    ["z"] = 5666
 }
-direction = "n"
+direction = "w"
 --settings--
 
 item_coords = {
@@ -39,6 +40,7 @@ function stop(msg)
     if msg == nil then
         msg = "unspecified error"
     end
+    --might make some stuff here idk
     error(msg)
 end
 
@@ -184,7 +186,7 @@ while true do
     --place iron
     move_sequence("l1")
     turtle.select(7)
-    turtle.palce()
+    turtle.place()
     
     --place coords chest
     move_sequence("l1")
@@ -207,7 +209,7 @@ while true do
         end
         
         local name = turtle.getItemDetail()["name"]
-        if name == "mekanism:shard_copper" or name == "create:copper_nugget" or name == "minecraft:copper_ingot"
+        if name == "mekanism:shard_copper" or name == "create:copper_nugget" or name == "minecraft:copper_ingot" then
             move_sequence("r2")
             turtle.drop()
             move_sequence("l2")
@@ -290,7 +292,7 @@ while true do
         turtle.drop()
     end
     if item_coords["iron_nugget"] > 0 then
-        select_item("create:iron_nugget")
+        select_item("minecraft:iron_nugget")
         turtle.drop(math.min(item_coords["iron_nugget"], 63))
     end
     if item_coords["iron_ingot"] > 0 then
@@ -340,13 +342,19 @@ while true do
     while miner.getToMine() > 0 do
         sleep(3)
     end
-    
-    --dig miner,importer,tanglo,coal,coal export
-    --move
+
+    --dig remaining machines and move to next area
+    turtle.select(1)
+    turtle.digUp()
+    move_sequence("f2u1")
+    turtle.select(2)
+    turtle.digUp()
+    move_sequence("b2l1")
+    turtle.turnLeft()
+    turtle.select(3)
+    turtle.dig()
+    turtle.turnRight()
+    move_sequence("r1d1f65")
+
     --repeat
 end
-
-
-
-
-
